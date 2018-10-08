@@ -6,12 +6,12 @@
 namespace google {
 namespace protobuf {
 namespace compiler {
-namespace c {
+namespace hi {
 
-class CGenerator : public CodeGenerator {
+class HiGenerator : public CodeGenerator {
     public:
-        CGenerator();
-        ~CGenerator();
+        HiGenerator();
+        ~HiGenerator();
 
         bool Generate(const FileDescriptor* file,
                         const string& parameter,

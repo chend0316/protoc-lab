@@ -20,6 +20,6 @@ make
 ### test
 
 ```
-./myprotoc --c_out=./ ./test/person.proto
+./protoc-hi --hi_out=./ ./test/person.proto
 cat ./test/person.txt
 ```

@@ -1,5 +1,5 @@
 
-#include <c_generator.h>
+#include <hi_generator.h>
 #include <iostream>
 
 #include <google/protobuf/descriptor.h>
@@ -12,7 +12,7 @@ using std::endl;
 namespace google {
 namespace protobuf {
 namespace compiler {
-namespace c {
+namespace hi {
 
 // replace `search' suffix in `s' to `replace'
 string ReplaceSuffix(string s, string search, string replace) {
@@ -22,10 +22,10 @@ string ReplaceSuffix(string s, string search, string replace) {
     return s;
 }
 
-CGenerator::CGenerator() {}
-CGenerator::~CGenerator() {}
+HiGenerator::HiGenerator() {}
+HiGenerator::~HiGenerator() {}
 
-bool CGenerator::Generate(const FileDescriptor* file,
+bool HiGenerator::Generate(const FileDescriptor* file,
                             const string& parameter,
                             GeneratorContext* context,
                             string* error) const {
@@ -37,6 +37,11 @@ bool CGenerator::Generate(const FileDescriptor* file,
     io::Printer printer(output.get(), '$');  // 指定$符号作为模板变量分隔符
 
     printer.Print("Hello $file$!\n", "file", filename);  // file是一个模板变量，file变量的值是`filename'
+
+    for (int i = 0; i < file->message_type_count(); i++) {
+        const Descriptor *message = file->message_type(i);
+        printer.Print("Hello $message$!\n", "message", message->full_name());
+    }
 
     return true;
 }
