@@ -34,9 +34,10 @@ bool HiGenerator::Generate(const FileDescriptor* file,
 
     std::unique_ptr<io::ZeroCopyOutputStream> output(context->Open(output_filename));
     GOOGLE_CHECK(output.get());
-    io::Printer printer(output.get(), '$');  // 指定$符号作为模板变量分隔符
+    io::Printer printer(output.get(), '$');  // 指定$符号作为模板变量的定界符（delimitation）
 
     printer.Print("Hello $file$!\n", "file", filename);  // file是一个模板变量，file变量的值是`filename'
+    // 假设filename变量现在是"person.proto"，那么这里会被替换为"Hello person.proto!\n"
 
     for (int i = 0; i < file->message_type_count(); i++) {
         const Descriptor *message = file->message_type(i);
